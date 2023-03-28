@@ -1,0 +1,7 @@
+[psql]
+  dbname = "shigoto_dev"
+  user = "postgres"
+  password = "postgres"
+  blacklist = ["schema_migrations"]
+  host = "localhost"
+  sslmode = "disable"
