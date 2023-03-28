@@ -4,6 +4,9 @@ migrate:
 rollback:
 	scripts/migrate_db.sh down
 
+regenerate:
+	sqlboiler psql --wipe
+
 recreate_db:
 	dropdb --if-exists ${DATABASE_NAME}
 	createdb ${DATABASE_NAME}

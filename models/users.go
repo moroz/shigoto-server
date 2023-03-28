@@ -537,6 +537,9 @@ func (o *User) Insert(ctx context.Context, exec boil.ContextExecutor, columns bo
 	if !boil.TimestampsAreSkipped(ctx) {
 		currTime := time.Now().In(boil.GetLocation())
 
+		if o.InsertedAt.IsZero() {
+			o.InsertedAt = currTime
+		}
 		if o.UpdatedAt.IsZero() {
 			o.UpdatedAt = currTime
 		}
@@ -755,6 +758,9 @@ func (o *User) Upsert(ctx context.Context, exec boil.ContextExecutor, updateOnCo
 	if !boil.TimestampsAreSkipped(ctx) {
 		currTime := time.Now().In(boil.GetLocation())
 
+		if o.InsertedAt.IsZero() {
+			o.InsertedAt = currTime
+		}
 		o.UpdatedAt = currTime
 	}
 
