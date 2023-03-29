@@ -26,13 +26,17 @@ func initDB(connString string) *sqlx.DB {
 }
 
 func main() {
-	conn := initDB(MustGetenv("DATABASE_URL"))
+	db := initDB(MustGetenv("DATABASE_URL"))
 
-	uc := controllers.Users{DB: conn}
+	uc := controllers.Users{DB: db}
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
+	r.Use(middleware.RealIP)
+	r.Use(middleware.RequestID)
+
 	r.Get("/users", uc.List)
+	r.Post("/users", uc.Create)
 
 	fmt.Println("Listening on :3000")
 	http.ListenAndServe(":3000", r)
